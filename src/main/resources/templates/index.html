@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор числа</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fef6e4, #e0f7fa);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selection-box {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .grid a, .scatter-button {
+            font-size: 26px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.2s, background-color 0.2s;
+            color: black;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid a:nth-child(1) { background-color: #fce38a; }
+        .grid a:nth-child(2) { background-color: #95e1d3; }
+        .grid a:nth-child(3) { background-color: #ffb6b9; }
+        .grid a:nth-child(4) { background-color: #d291bc; }
+        .grid a:nth-child(5) { background-color: #b5ead7; }
+        .grid a:nth-child(6) { background-color: #ffdac1; }
+        .grid a:nth-child(7) { background-color: #f3a683; }
+        .grid a:nth-child(8) { background-color: #c1c8e4; }
+        .grid a:nth-child(9) { background-color: #f7aef8; }
+
+        .grid a:hover,
+        .scatter-button:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .scatter-button {
+            background-color: #6c63ff;
+            color: white;
+            display: block;
+            margin: 0 auto;
+            font-size: 24px;
+            padding: 15px 25px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="selection-box">
+    <h1>Выбери число</h1>
+
+    <div class="grid">
+        <a th:href="@{/reshenie/2}">2</a>
+        <a th:href="@{/reshenie/3}">3</a>
+        <a th:href="@{/reshenie/4}">4</a>
+        <a th:href="@{/reshenie/5}">5</a>
+        <a th:href="@{/reshenie/6}">6</a>
+        <a th:href="@{/reshenie/7}">7</a>
+        <a th:href="@{/reshenie/8}">8</a>
+        <a th:href="@{/reshenie/9}">9</a>
+        <a th:href="@{/reshenie/10}">10</a>
+    </div>
+
+    <a th:href="@{/reshenie/all}" class="scatter-button">Вразброс</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

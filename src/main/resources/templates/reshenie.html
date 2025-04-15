@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решение примеров</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fffde7, #e0f7fa);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            margin-bottom: 40px;
+            font-size: 36px;
+        }
+
+        .card {
+            border-radius: 20px;
+            background-color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .example {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fdfdfd;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .example:hover {
+            transform: scale(1.02);
+        }
+
+        .box {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            border: 3px solid black;
+            border-radius: 12px;
+        }
+
+        .orange { background-color: #FFC107; }
+        .green  { background-color: #AED581; }
+        .pink   { background-color: #F8BBD0; }
+
+        .blue-input {
+            background-color: #B3E5FC;
+            width: 80px;
+            height: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            border: 3px solid black;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .operator {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            margin-top: 30px;
+            font-size: 22px;
+            padding: 12px 30px;
+            border-radius: 12px;
+            background-color: #64b5f6;
+            color: white;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #42a5f5;
+        }
+
+        .btn-primary {
+            background-color: #8AAAE5;
+            border: none;
+            padding: 10px 25px;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #6d91dc;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <h1>Решение примеров</h1>
+
+    <form action="/submit-reshenie" method="post" class="card p-4">
+
+        <!-- Умножение -->
+        <div id="multipliers" class="mb-5">
+            <div class="text-center mb-4"><strong>Умножение</strong></div>
+            <div class="row gy-3">
+                <div th:each="primer : ${multiplierList}" class="col-md-6">
+                    <div class="example">
+                        <div class="box orange" th:text="${primer.operand1}"></div>
+                        <div class="operator">×</div>
+                        <div class="box green" th:text="${primer.operand2}"></div>
+                        <div class="operator">=</div>
+                        <input type="text"
+                               th:id="'primer-multiply-' + ${primer.id}"
+                               th:name="'answer-multiply-' + ${primer.id}"
+                               class="blue-input" required>
+                    </div>
+                </div>
+
+                <div th:each="primer : ${multiplierListObrat}" class="col-md-6">
+                    <div class="example">
+                        <div class="box orange" th:text="${primer.operand2}"></div>
+                        <div class="operator">×</div>
+                        <div class="box green" th:text="${primer.operand1}"></div>
+                        <div class="operator">=</div>
+                        <input type="text"
+                               th:id="'primer-multiplyObrat-' + ${primer.id}"
+                               th:name="'answer-multiplyObrat-' + ${primer.id}"
+                               class="blue-input" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Деление -->
+        <div id="dividers" class="mb-4">
+            <div class="text-center mb-4"><strong>Деление</strong></div>
+            <div class="row gy-3">
+                <div th:each="primer : ${dividerList}" class="col-md-6">
+                    <div class="example">
+                        <div class="box pink" th:text="${primer.operand1 * primer.operand2}"></div>
+                        <div class="operator">:</div>
+                        <div class="box orange" th:text="${primer.operand1}"></div>
+                        <div class="operator">=</div>
+                        <input type="text"
+                               th:id="'primer-divide-' + ${primer.id}"
+                               th:name="'answer-divide-' + ${primer.id}"
+                               class="blue-input" required>
+                    </div>
+                </div>
+
+                <div th:each="primer : ${dividerListObrat}" class="col-md-6">
+                    <div class="example">
+                        <div class="box pink" th:text="${primer.operand1 * primer.operand2}"></div>
+                        <div class="operator">:</div>
+                        <div class="box orange" th:text="${primer.operand2}"></div>
+                        <div class="operator">=</div>
+                        <input type="text"
+                               th:id="'primer-divideObrat-' + ${primer.id}"
+                               th:name="'answer-divideObrat-' + ${primer.id}"
+                               class="blue-input" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка -->
+        <div class="text-center">
+            <button type="submit" class="submit-btn">Отправить</button>
+        </div>
+    </form>
+
+    <br>
+    <div class="text-center">
+        <a th:href="@{/}" class="btn btn-primary">Назад</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
