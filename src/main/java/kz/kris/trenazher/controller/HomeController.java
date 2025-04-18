@@ -1,6 +1,8 @@
 package kz.kris.trenazher.controller;
 
 import kz.kris.trenazher.model.Primer;
+import kz.kris.trenazher.repository.HistoryRepository;
+import kz.kris.trenazher.repository.SeanceRepository;
 import kz.kris.trenazher.service.PrimerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +14,10 @@ import java.util.List;
 @Controller
 public class HomeController {
     private final PrimerService primerService;
-    public HomeController(PrimerService primerService) {
+    private final SeanceRepository seanceRepository;
+    public HomeController(PrimerService primerService, SeanceRepository seanceRepository) {
         this.primerService = primerService;
+        this.seanceRepository = seanceRepository;
     }
 
 
@@ -62,6 +66,10 @@ public class HomeController {
         return "reshenie";
     }
 
-
+    @GetMapping("/history")
+    public String historyPage(Model model){
+        model.addAttribute("seanses", seanceRepository.findAll());
+        return "history";
+    }
 
 }

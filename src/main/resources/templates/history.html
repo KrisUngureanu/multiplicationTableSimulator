@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История Сеансов</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fffde7, #e0f7fa);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            padding: 30px 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff6f61;
+            margin-bottom: 40px;
+        }
+
+        .seance {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .seance:hover {
+            transform: scale(1.01);
+        }
+
+        .seance-header {
+            font-size: 24px;
+            color: #6c63ff;
+            margin-bottom: 15px;
+        }
+
+        .attribute {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .answers {
+            margin-top: 20px;
+        }
+
+        .answers strong {
+            font-size: 18px;
+            color: #444;
+        }
+
+        .answers-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .answers-list li {
+            background-color: #fdfdfd;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .answers-list li .comment {
+            flex: 1;
+        }
+
+        .answers-list li .result {
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 16px;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .result.correct {
+            background-color: #4caf50;
+        }
+
+        .result.incorrect {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">История сеансов</div>
+
+    <div th:each="seance : ${seanses}" class="seance">
+        <div class="seance-header">
+            📋 Сеанс № <span th:text="${seance.id}"></span>
+        </div>
+        <div class="seance-details">
+            <p class="attribute">🕒 <strong>Время:</strong>
+                <span th:text="${seance.time}"></span>
+            </p>
+            <p class="attribute">🔢 <strong>Количество ответов:</strong>
+                <span th:text="${#lists.size(seance.answerList)}"></span>
+            </p>
+        </div>
+
+        <div class="answers">
+            <strong>📚 Ответы:</strong>
+            <ul class="answers-list">
+                <li th:each="answer : ${seance.answerList}">
+                    <div class="comment">
+                        <p th:text="${answer.getComment()}"></p>
+                    </div>
+                    <div th:class="'result ' + (answer.correct ? 'correct' : 'incorrect')">
+                        <span th:text="${answer.correct ? '✅ Да' : '❌ Нет'}"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
